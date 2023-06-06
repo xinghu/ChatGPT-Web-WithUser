@@ -31,7 +31,9 @@ export async function POST(
       }
       for (let key in data.limits) {
         console.log(key);
-        data.limits[key].limit = parseInt(data.limits[key].toString(), 10);
+        var num = parseInt(data.limits[key]['limit'].toString(), 10);
+        console.log(num);
+        data.limits[key].limit = num;
       }
 
       if (await dal.exists(id)) await dal.update(id, data);
