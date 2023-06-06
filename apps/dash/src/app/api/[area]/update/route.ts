@@ -15,17 +15,22 @@ export async function POST(
   const data: PlanItem = await req.json();
   switch (params.area) {
     case "plan":
+      console.log("---in update plan----");
       const dal = new PlanDAL();
       const id = data.plan;
       delete data.plan;
+
+      console.log(data);
 
       if (!id || !data) return NextResponse.json({ msg: "failed" });
 
       /* Ensure the type. */
       for (let key in data.prices) {
+        console.log(key);
         data.prices[key] = parseInt(data.prices[key].toString(), 10);
       }
       for (let key in data.limits) {
+        console.log(key);
         data.limits[key].limit = parseInt(data.limits[key].toString(), 10);
       }
 
