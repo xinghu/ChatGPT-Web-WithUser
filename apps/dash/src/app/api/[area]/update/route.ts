@@ -15,18 +15,25 @@ export async function POST(
   const data: PlanItem = await req.json();
   switch (params.area) {
     case "plan":
+      console.log("---in update plan----");
       const dal = new PlanDAL();
       const id = data.plan;
       delete data.plan;
+
+      console.log(data);
 
       if (!id || !data) return NextResponse.json({ msg: "failed" });
 
       /* Ensure the type. */
       for (let key in data.prices) {
+        console.log(key);
         data.prices[key] = parseInt(data.prices[key].toString(), 10);
       }
       for (let key in data.limits) {
-        data.limits[key].limit = parseInt(data.limits[key].toString(), 10);
+        console.log(key);
+        var num = parseInt(data.limits[key]['limit'].toString(), 10);
+        console.log(num);
+        data.limits[key].limit = num;
       }
 
       if (await dal.exists(id)) await dal.update(id, data);

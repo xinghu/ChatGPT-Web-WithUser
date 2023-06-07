@@ -31,7 +31,11 @@ export class UserLogic {
    * @returns true if the password is correct, false if the password is incorrect or the user does not exist
    */
   async login(email: string, password: string): Promise<boolean> {
+    console.log(email);
+    console.log(password);
     const passwordHash = await this.dal.readPassword(email);
+    console.log(passwordHash);
+    console.log(md5.hash(password.trim()));
     const success = passwordHash === md5.hash(password.trim());
 
     if (success) await this.dal.update(email, { lastLoginAt: Date.now() });
