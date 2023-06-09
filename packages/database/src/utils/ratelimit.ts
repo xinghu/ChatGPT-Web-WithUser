@@ -87,6 +87,17 @@ export class ModelRateLimiter extends Ratelimit {
     return tokens - requestsInCurrentWindow
     `;
 
+    const script1 = `
+    local currentKey  = KEYS[1]           -- identifier including prefixes
+    
+    local requestsInCurrentWindow = redis.call("GET", currentKey)
+    if requestsInCurrentWindow == false then
+      requestsInCurrentWindow = -1
+    end
+    
+    return requestsInCurrentWindow
+    `;
+
     const now = Date.now();
 
     const currentWindow = Math.floor(now / this.#windowSize);
@@ -96,6 +107,15 @@ export class ModelRateLimiter extends Ratelimit {
     const previousKey = [this.#email, previousWindow].join(":");
 
     console.log(currentKey, previousKey, now, this.#limit, this.#windowSize);
+
+    const remaining1 = (await this.#redis.eval(
+      script1,
+      [
+        currentKey,        
+      ],
+    )) as number;
+
+    console.log("=============", remaining1);
 
     const remaining = (await this.#redis.eval(
       script,
