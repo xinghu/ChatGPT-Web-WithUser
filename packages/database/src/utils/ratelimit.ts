@@ -113,9 +113,10 @@ export class ModelRateLimiter extends Ratelimit {
       [
         currentKey,        
       ],
+      [],
     )) as number;
 
-    console.log("=============", remaining1);
+    console.log(10000, remaining1);
 
     const remaining = (await this.#redis.eval(
       script,
