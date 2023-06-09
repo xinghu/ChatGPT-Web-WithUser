@@ -10,9 +10,6 @@ export async function GET(req: NextRequest) {
     return NextResponse.json(
       {
         status: ResponseStatus.Failed,
-      },
-      {
-        status: 404,
       }
     );
 
