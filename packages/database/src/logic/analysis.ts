@@ -70,7 +70,14 @@ export class AnalysisLogic {
 
   async countPaidCountPerPlan(): Promise<Record<string, number>> {
     const orders = await this.dal.getOrderValues();
-    const paidCountPerPlan = orders
+    // 预先初始化累加器
+    const paidCountPerPlan = {
+      "free": 0,
+      "pro": 0,
+      "premium": 0
+    };
+
+    orders
       .filter(([{ status }]) => status === 'paid')
       .reduce((acc, [{ plan }]) => {
         acc[plan] ??= 0;
