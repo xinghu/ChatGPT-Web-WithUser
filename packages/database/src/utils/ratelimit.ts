@@ -94,6 +94,8 @@ export class ModelRateLimiter extends Ratelimit {
     const previousWindow = currentWindow - this.#windowSize;
     const previousKey = [this.#email, previousWindow].join(":");
 
+    console.log({ currentKey, previousKey, now, currentWindow, previousWindow });
+
     const remaining = (await this.#redis.eval(
       script,
       [
@@ -109,6 +111,7 @@ export class ModelRateLimiter extends Ratelimit {
 
     const success = remaining >= 0;
     const reset = (currentWindow + 1) * this.#windowSize;
+    console.log(remaining);
 
     return {
       remaining,
