@@ -89,8 +89,9 @@ export class ModelRateLimiter extends Ratelimit {
 
     const script1 = `
     local currentKey  = KEYS[1]           -- identifier including prefixes
-    
+    redis.log(redis.LOG_NOTICE, "currentKey is: " .. currentKey)
     local requestsInCurrentWindow = redis.call("GET", currentKey)
+    redis.log(redis.LOG_NOTICE, "requestsInCurrentWindow is: " .. requestsInCurrentWindow)
     if requestsInCurrentWindow == false then
       requestsInCurrentWindow = -1
     end
