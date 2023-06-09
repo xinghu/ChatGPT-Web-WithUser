@@ -87,37 +87,15 @@ export class ModelRateLimiter extends Ratelimit {
     return tokens - requestsInCurrentWindow
     `;
 
-    const script1 = `
-    local currentKey  = KEYS[1]           -- identifier including prefixes
-    redis.log(redis.LOG_NOTICE, "currentKey is: " .. currentKey)
-    local requestsInCurrentWindow = redis.call("GET", currentKey)
-    redis.log(redis.LOG_NOTICE, "requestsInCurrentWindow is: " .. requestsInCurrentWindow)
-    if requestsInCurrentWindow == false then
-      requestsInCurrentWindow = -1
-    end
-    
-    return requestsInCurrentWindow
-    `;
-
     const now = Date.now();
 
     const currentWindow = Math.floor(now / this.#windowSize);
-    const currentKey = [this.#email, currentWindow].join(":");
+    const currentKey = [this.#prefix, this.#email, currentWindow].join(":");
     const preTime = now - this.#windowSize;
     const previousWindow = Math.floor(preTime / this.#windowSize);
-    const previousKey = [this.#email, previousWindow].join(":");
+    const previousKey = [this.#prefix, this.#email, previousWindow].join(":");
 
     console.log(currentKey, previousKey, now, this.#limit, this.#windowSize);
-
-    const remaining1 = (await this.#redis.eval(
-      script1,
-      [
-        currentKey,        
-      ],
-      [],
-    )) as number;
-
-    console.log(10000, remaining1);
 
     const remaining = (await this.#redis.eval(
       script,
