@@ -95,7 +95,7 @@ export class ModelRateLimiter extends Ratelimit {
     const previousWindow = Math.floor(preTime / this.#windowSize);
     const previousKey = [this.#email, previousWindow].join(":");
 
-    console.log({ currentKey, previousKey, now, this.#limit, this.#windowSize });
+    console.log(currentKey, previousKey, now, this.#limit, this.#windowSize);
 
     const remaining = (await this.#redis.eval(
       script,
