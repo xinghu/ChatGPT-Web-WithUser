@@ -56,8 +56,8 @@ const timeRender: TableColumnRender<UserItem> = (value, rowData, rowIndex) => {
 
 export const userColumn: TableColumnType[] = [
   {
-    prop: "name",
-    label: "用户名",
+    prop: "email",
+    label: "用户邮箱",
   },
   {
     prop: "subscriptions",

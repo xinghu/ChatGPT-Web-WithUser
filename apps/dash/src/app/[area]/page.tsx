@@ -96,7 +96,7 @@ export default function Page({
           </div>
         </Card>
       </Grid>
-      <Grid xs={24}>
+      <Grid xs={24}>        
         <Table tableColumn={columns} tableData={data?.data?.data} />
       </Grid>
       {/*<Grid xs={12}>*/}
