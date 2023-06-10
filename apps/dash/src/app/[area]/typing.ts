@@ -1,5 +1,6 @@
 export type UserItem = {
   name: string;
+  email: string;
   passwordHash: string;
   createdAt: number;
   lastLoginAt: number;
