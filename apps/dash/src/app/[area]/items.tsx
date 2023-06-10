@@ -60,7 +60,7 @@ export const userColumn: TableColumnType[] = [
     label: "用户名",
   },
   {
-    prop: "email",
+    prop: "user",
     label: "用户邮箱",
   },
   {
