@@ -8,7 +8,9 @@ import { OrderLogic, SubscriptionLogic } from "database";
  * @param req
  */
 export async function POST(req: NextRequest) {
+  console.log(req);
   const orderId = await handleCallback(req);
+  console.log(orderId);
   if (!orderId) return new Response("failed");
 
   const orderLogic = new OrderLogic();

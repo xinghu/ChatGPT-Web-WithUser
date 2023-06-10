@@ -142,6 +142,7 @@ export async function handleCallback(req: NextRequest) {
   const body = urlEncodedStringToJson(
     await req.text()
   ) as unknown as CallbackBody;
+  console.log(body);
   /* == Verify Security field == */
   /*
    Currently only the appId is being validated.
