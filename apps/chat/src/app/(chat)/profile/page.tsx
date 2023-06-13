@@ -178,7 +178,7 @@ export default function Profile() {
 
         {subscription && <SubscribeTable data={subscription} />}
 
-        <List>
+        {/* <List>
           <ProfileItem
             title={Locale.Profile.Invite.Title}
             subTitle={Locale.Profile.Invite.SubTitle}
@@ -216,7 +216,7 @@ export default function Profile() {
               {Locale.Profile.Reset.Click(resetChances ?? 0)}
             </button>
           </ProfileItem>
-        </List>
+        </List> */}
 
         {/*<List>*/}
         {/*  <ProfileItem*/}
